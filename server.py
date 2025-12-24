@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import boto3
 from botocore.exceptions import ClientError
 
-dynamodb = boto3.resource('dynamodb',region="ca-central-1")
+dynamodb = boto3.resource('dynamodb',region_name="ca-central-1")
 table = dynamodb.Table('user_details')
 
 app = Flask(__name__)
