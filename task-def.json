@@ -1,0 +1,65 @@
+{
+    "family": "test-web",
+    "containerDefinitions": [
+        {
+            "cpu": 0,
+            "environment": [],
+            "essential": true,
+            "image": "farhan1281/user:latest",
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/test-web",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "ca-central-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "mountPoints": [],
+            "name": "myapp",
+            "portMappings": [
+                {
+                    "containerPort": 5000,
+                    "hostPort": 5000,
+                    "protocol": "tcp"
+                }
+            ],
+            "systemControls": [],
+            "volumesFrom": []
+        },
+        {
+            "name": "tunnel",
+            "image": "cloudflare/cloudflared:latest",
+            "essential": true,
+            "cpu": 0,
+            "command": [
+                "tunnel",
+                "--url",
+                "http://192.168.2.59:5000"
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/test-web",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "ca-central-1",
+                    "awslogs-stream-prefix": "tunnel"
+                }
+            }
+        }
+    ],
+    "taskRoleArn": "arn:aws:iam::541804384520:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::541804384520:role/ecsTaskExecutionRole",
+    "networkMode": "bridge",
+    "volumes": [],
+    "placementConstraints": [],
+    "requiresCompatibilities": [
+        "EXTERNAL"
+    ],
+    "cpu": "256",
+    "memory": "512",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    }
+}

@@ -16,4 +16,4 @@ EXPOSE 5000
 
 # 6. CMD - THE IMPORTANT CHANGE
 # Syntax: gunicorn -b [IP]:[PORT] [filename]:[flask_variable_name]
-CMD ["gunicorn", "-b", "0.0.0.0:5000", "app:app"]
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "server:app"]
